@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -47,7 +46,7 @@ const BodyMeasurementsPage = () => {
     e.preventDefault();
     
     // Convert all values to numbers and validate
-    const measurementData = {
+    const measurementData: Record<string, number> = {
       neck: parseFloatOrZero(formData.neck),
       shoulders: parseFloatOrZero(formData.shoulders),
       chest: parseFloatOrZero(formData.chest),
@@ -125,8 +124,9 @@ const BodyMeasurementsPage = () => {
   const calculateDifference = (key: string) => {
     if (bodyMeasurements.length < 2) return null;
     
-    const latest = bodyMeasurements[0][key as keyof typeof bodyMeasurements[0]] || 0;
-    const previous = bodyMeasurements[1][key as keyof typeof bodyMeasurements[1]] || 0;
+    // Fix: Ensure we're working with numbers and handle type conversion properly
+    const latest = Number(bodyMeasurements[0][key as keyof typeof bodyMeasurements[0]]) || 0;
+    const previous = Number(bodyMeasurements[1][key as keyof typeof bodyMeasurements[1]]) || 0;
     
     if (latest === 0 || previous === 0) return null;
     
@@ -159,6 +159,27 @@ const BodyMeasurementsPage = () => {
     leftThigh: "الفخذ الأيسر",
     rightCalf: "ساق اليمنى",
     leftCalf: "ساق اليسرى",
+  };
+
+  // Format date to show both Gregorian and Hijri
+  const formatDateWithHijri = (dateStr: string): string => {
+    try {
+      const date = new Date(dateStr);
+      // Use Intl.DateTimeFormat for both Gregorian and approximate Hijri date
+      const gregorian = new Intl.DateTimeFormat('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }).format(date);
+      
+      // For Hijri date, we'll use a simple approximation
+      // since the hijri-date package installation failed
+      const hijriYear = Math.floor((date.getFullYear() - 622) * (33/32));
+      
+      return `${gregorian} (تقريباً ${hijriYear} هـ)`;
+    } catch (error) {
+      return dateStr;
+    }
   };
 
   // Handle delete confirmation
@@ -278,7 +299,7 @@ const BodyMeasurementsPage = () => {
                   {bodyMeasurements.length > 0 && (
                     <div className="bg-muted p-3 rounded-md">
                       <p className="text-xs text-muted-foreground mb-2">
-                        {formatDate(bodyMeasurements[0].date)}
+                        {formatDateWithHijri(bodyMeasurements[0].date)}
                       </p>
                       <div className="grid grid-cols-2 gap-2">
                         {Object.entries(measurementLabels).map(([key, label]) => {
@@ -358,7 +379,7 @@ const BodyMeasurementsPage = () => {
                             </Button>
                           </div>
                           <p className="text-xs font-medium mb-2">
-                            {formatDate(measurement.date)}
+                            {formatDateWithHijri(measurement.date)}
                           </p>
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {Object.entries(measurementLabels).map(([key, label]) => {
@@ -396,7 +417,7 @@ const BodyMeasurementsPage = () => {
             <DialogTitle>تفاصيل القياس</DialogTitle>
             {getViewableMeasurement() && (
               <DialogDescription>
-                تاريخ: {formatDate(getViewableMeasurement()?.date || '')}
+                تاريخ: {formatDateWithHijri(getViewableMeasurement()?.date || '')}
               </DialogDescription>
             )}
           </DialogHeader>
