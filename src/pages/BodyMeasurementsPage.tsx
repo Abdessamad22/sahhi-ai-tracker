@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -44,19 +43,27 @@ const BodyMeasurementsPage = () => {
     e.preventDefault();
     
     // Convert all values to numbers and validate
-    const measurementData: Record<string, number> = {};
+    const measurementData = {
+      neck: parseFloatOrZero(formData.neck),
+      shoulders: parseFloatOrZero(formData.shoulders),
+      chest: parseFloatOrZero(formData.chest),
+      rightArm: parseFloatOrZero(formData.rightArm),
+      leftArm: parseFloatOrZero(formData.leftArm),
+      abdomen: parseFloatOrZero(formData.abdomen),
+      waist: parseFloatOrZero(formData.waist),
+      hips: parseFloatOrZero(formData.hips),
+      rightThigh: parseFloatOrZero(formData.rightThigh),
+      leftThigh: parseFloatOrZero(formData.leftThigh),
+      rightCalf: parseFloatOrZero(formData.rightCalf),
+      leftCalf: parseFloatOrZero(formData.leftCalf),
+    };
+    
     let isValid = true;
     
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value === '') {
-        measurementData[key] = 0; // Set empty values to 0
-      } else {
-        const numValue = parseFloat(value);
-        if (isNaN(numValue) || numValue < 0 || numValue > 200) {
-          isValid = false;
-          return;
-        }
-        measurementData[key] = numValue;
+    // Check if all values are valid (between 0 and 200)
+    Object.values(measurementData).forEach(value => {
+      if (value < 0 || value > 200) {
+        isValid = false;
       }
     });
     
@@ -88,6 +95,12 @@ const BodyMeasurementsPage = () => {
       title: "تم الحفظ",
       description: "تم حفظ القياسات بنجاح"
     });
+  };
+
+  // Helper function to parse float or return 0
+  const parseFloatOrZero = (value: string): number => {
+    const parsedValue = parseFloat(value);
+    return isNaN(parsedValue) ? 0 : parsedValue;
   };
 
   // Function to prepare chart data

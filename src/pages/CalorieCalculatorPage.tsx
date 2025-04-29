@@ -21,7 +21,7 @@ const CalorieCalculatorPage = () => {
   const [weight, setWeight] = useState(userInfo.weight.toString());
   const [height, setHeight] = useState(userInfo.height.toString());
   const [gender, setGender] = useState<'male' | 'female'>(userInfo.gender);
-  const [activityLevel, setActivityLevel] = useState(userInfo.activityLevel);
+  const [activityLevel, setActivityLevel] = useState<"sedentary" | "light" | "moderate" | "active" | "veryActive">(userInfo.activityLevel);
 
   // Update the context when form is submitted
   const handleSubmit = (e: React.FormEvent) => {
@@ -83,6 +83,11 @@ const CalorieCalculatorPage = () => {
   };
   
   const goals = calculateGoals();
+
+  // Handle activity level change with proper type casting
+  const handleActivityLevelChange = (value: string) => {
+    setActivityLevel(value as "sedentary" | "light" | "moderate" | "active" | "veryActive");
+  };
 
   return (
     <div className="space-y-6">
@@ -175,7 +180,10 @@ const CalorieCalculatorPage = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="activity-level">مستوى النشاط</Label>
-                <Select value={activityLevel} onValueChange={setActivityLevel}>
+                <Select 
+                  value={activityLevel} 
+                  onValueChange={handleActivityLevelChange}
+                >
                   <SelectTrigger id="activity-level">
                     <SelectValue placeholder="اختر مستوى نشاطك" />
                   </SelectTrigger>
