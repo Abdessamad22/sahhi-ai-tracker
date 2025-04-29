@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,10 +8,11 @@ import { Separator } from '@/components/ui/separator';
 import { useHealth } from '@/context/HealthContext';
 import { useToast } from '@/hooks/use-toast';
 import { formatDate } from '@/lib/utils';
-import { ArrowDown, ArrowUp, Equal, Scale, Trash2 } from 'lucide-react';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ArrowDown, ArrowUp, Equal, Scale, Trash2, Eye, Check, X } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const BodyMeasurementsPage = () => {
   const { bodyMeasurements, addBodyMeasurement, deleteBodyMeasurement } = useHealth();
@@ -33,6 +35,8 @@ const BodyMeasurementsPage = () => {
 
   const [formData, setFormData] = useState(initialFormState);
   const [selectedMeasurement, setSelectedMeasurement] = useState('waist');
+  const [viewMeasurementId, setViewMeasurementId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -135,6 +139,12 @@ const BodyMeasurementsPage = () => {
     };
   };
 
+  // Get the details of a specific measurement by ID
+  const getViewableMeasurement = () => {
+    if (!viewMeasurementId) return null;
+    return bodyMeasurements.find(m => m.id === viewMeasurementId) || null;
+  };
+
   // Labels for the measurements in Arabic
   const measurementLabels: Record<string, string> = {
     neck: "الرقبة",
@@ -149,6 +159,16 @@ const BodyMeasurementsPage = () => {
     leftThigh: "الفخذ الأيسر",
     rightCalf: "ساق اليمنى",
     leftCalf: "ساق اليسرى",
+  };
+
+  // Handle delete confirmation
+  const handleDeleteMeasurement = (id: string) => {
+    deleteBodyMeasurement(id);
+    setConfirmDeleteId(null);
+    toast({
+      title: "تم الحذف",
+      description: "تم حذف القياس بنجاح"
+    });
   };
 
   return (
@@ -319,18 +339,20 @@ const BodyMeasurementsPage = () => {
                     <div className="space-y-4">
                       {bodyMeasurements.map((measurement) => (
                         <div key={measurement.id} className="bg-muted p-3 rounded-md relative">
-                          <div className="absolute top-2 right-2">
+                          <div className="absolute top-2 right-2 flex space-x-1">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 text-muted-foreground hover:text-primary"
+                              onClick={() => setViewMeasurementId(measurement.id)}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
                             <Button
                               variant="ghost"
                               size="icon"
                               className="h-6 w-6 text-muted-foreground hover:text-destructive"
-                              onClick={() => {
-                                deleteBodyMeasurement(measurement.id);
-                                toast({
-                                  title: "تم الحذف",
-                                  description: "تم حذف القياس بنجاح"
-                                });
-                              }}
+                              onClick={() => setConfirmDeleteId(measurement.id)}
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -366,6 +388,76 @@ const BodyMeasurementsPage = () => {
           </CardFooter>
         </Card>
       </div>
+
+      {/* Detailed View Dialog */}
+      <Dialog open={viewMeasurementId !== null} onOpenChange={(open) => !open && setViewMeasurementId(null)}>
+        <DialogContent className="max-w-[90vw] sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>تفاصيل القياس</DialogTitle>
+            {getViewableMeasurement() && (
+              <DialogDescription>
+                تاريخ: {formatDate(getViewableMeasurement()?.date || '')}
+              </DialogDescription>
+            )}
+          </DialogHeader>
+          
+          {getViewableMeasurement() && (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[200px]">منطقة القياس</TableHead>
+                  <TableHead>القيمة</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Object.entries(measurementLabels).map(([key, label]) => {
+                  const measurement = getViewableMeasurement();
+                  const value = measurement ? measurement[key as keyof typeof measurement] : null;
+                  
+                  if (!value) return null;
+                  
+                  return (
+                    <TableRow key={key}>
+                      <TableCell className="font-medium">{label}</TableCell>
+                      <TableCell>{value} سم</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          )}
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setViewMeasurementId(null)}>
+              إغلاق
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={confirmDeleteId !== null} onOpenChange={(open) => !open && setConfirmDeleteId(null)}>
+        <DialogContent className="max-w-[450px]">
+          <DialogHeader>
+            <DialogTitle>تأكيد الحذف</DialogTitle>
+            <DialogDescription>
+              هل أنت متأكد من رغبتك في حذف هذا القياس؟ لا يمكن التراجع عن هذا الإجراء.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex justify-end space-x-2">
+            <Button variant="outline" onClick={() => setConfirmDeleteId(null)}>
+              إلغاء
+            </Button>
+            <Button 
+              variant="destructive"
+              onClick={() => confirmDeleteId && handleDeleteMeasurement(confirmDeleteId)}
+            >
+              حذف
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
