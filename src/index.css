@@ -49,6 +49,7 @@
 
   html {
     direction: rtl;
+    font-variant-numeric: lining-nums;
   }
 
   body {

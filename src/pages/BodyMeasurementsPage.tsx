@@ -8,6 +8,7 @@ import { useHealth } from '@/context/HealthContext';
 import type { BodyMeasurement } from '@/context/HealthContext';
 import { useToast } from '@/hooks/use-toast';
 import { formatDate } from '@/lib/utils';
+import { toWesternNumerals, formatDecimalWestern, formatDateWestern } from '@/lib/number-utils';
 import { ArrowDown, ArrowUp, Equal, Scale, Trash2, Eye, Check, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -166,8 +167,8 @@ const BodyMeasurementsPage = () => {
   const formatDateWithHijri = (dateStr: string): string => {
     try {
       const date = new Date(dateStr);
-      // Use Intl.DateTimeFormat for both Gregorian and approximate Hijri date
-      const gregorian = new Intl.DateTimeFormat('ar-EG', {
+      // Use French formatting for dates to ensure Western numerals
+      const gregorian = new Intl.DateTimeFormat('fr-FR', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -300,7 +301,7 @@ const BodyMeasurementsPage = () => {
                   {bodyMeasurements.length > 0 && (
                     <div className="bg-muted p-3 rounded-md">
                       <p className="text-xs text-muted-foreground mb-2">
-                        {formatDateWithHijri(bodyMeasurements[0].date)}
+                        {formatDateWestern(bodyMeasurements[0].date)}
                       </p>
                       <div className="grid grid-cols-2 gap-2">
                         {Object.entries(measurementLabels).map(([key, label]) => {
@@ -313,7 +314,7 @@ const BodyMeasurementsPage = () => {
                             <div key={key} className="flex justify-between items-center">
                               <span className="text-xs">{label}</span>
                               <div className="flex items-center">
-                                <span className="text-sm font-medium ml-1">{value} سم</span>
+                                <span className="text-sm font-medium ml-1">{toWesternNumerals(value.toString())} سم</span>
                                 {diff && (
                                   <span className={`text-xs flex items-center ${
                                     diff.decreased ? "text-green-600" : 
@@ -322,7 +323,7 @@ const BodyMeasurementsPage = () => {
                                     {diff.decreased && <ArrowDown className="h-3 w-3" />}
                                     {diff.increased && <ArrowUp className="h-3 w-3" />}
                                     {diff.unchanged && <Equal className="h-3 w-3" />}
-                                    {diff.value}
+                                    {toWesternNumerals(diff.value)}
                                   </span>
                                 )}
                               </div>
