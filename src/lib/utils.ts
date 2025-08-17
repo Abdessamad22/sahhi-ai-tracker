@@ -1,6 +1,7 @@
 
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { toWesternNumerals } from "@/lib/number-utils";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -8,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // Format number with commas
 export function formatNumber(num: number): string {
-  return num.toLocaleString('fr-FR');
+  return toWesternNumerals(num.toLocaleString('fr-FR'));
 }
 
 // Round number to specific decimal places
@@ -19,11 +20,12 @@ export function roundToDecimals(num: number, decimals: number = 1): number {
 // Format date to French friendly format
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return new Intl.DateTimeFormat('fr-FR', {
+  const formatted = new Intl.DateTimeFormat('fr-FR', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
   }).format(date);
+  return toWesternNumerals(formatted);
 }
 
 // Calculate calories burned during exercise

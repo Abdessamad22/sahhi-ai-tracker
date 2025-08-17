@@ -116,7 +116,7 @@ const BodyMeasurementsPage = () => {
       .map((measurement) => {
         const date = new Date(measurement.date);
         return {
-          date: `${date.getDate()}/${date.getMonth() + 1}`,
+          date: toWesternNumerals(`${date.getDate()}/${date.getMonth() + 1}`),
           [selectedMeasurement]: measurement[selectedMeasurement as keyof typeof measurement] || 0,
         };
       });
@@ -178,7 +178,7 @@ const BodyMeasurementsPage = () => {
       // since the hijri-date package installation failed
       const hijriYear = Math.floor((date.getFullYear() - 622) * (33/32));
       
-      return `${gregorian} (تقريباً ${hijriYear} هـ)`;
+      return `${toWesternNumerals(gregorian)} (تقريباً ${toWesternNumerals(hijriYear.toString())} هـ)`;
     } catch (error) {
       return dateStr;
     }
@@ -381,7 +381,7 @@ const BodyMeasurementsPage = () => {
                             </Button>
                           </div>
                           <p className="text-xs font-medium mb-2">
-                            {formatDateWithHijri(measurement.date)}
+                             {formatDateWithHijri(measurement.date)}
                           </p>
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {Object.entries(measurementLabels).map(([key, label]) => {
@@ -391,7 +391,7 @@ const BodyMeasurementsPage = () => {
                               return (
                                 <div key={key} className="flex justify-between">
                                   <span className="text-xs">{label}</span>
-                                  <span className="text-xs font-medium">{value} سم</span>
+                                  <span className="text-xs font-medium">{toWesternNumerals(value.toString())} سم</span>
                                 </div>
                               );
                             })}
@@ -419,7 +419,7 @@ const BodyMeasurementsPage = () => {
             <DialogTitle>تفاصيل القياس</DialogTitle>
             {getViewableMeasurement() && (
               <DialogDescription>
-                تاريخ: {formatDateWithHijri(getViewableMeasurement()?.date || '')}
+                 تاريخ: {formatDateWithHijri(getViewableMeasurement()?.date || '')}
               </DialogDescription>
             )}
           </DialogHeader>
