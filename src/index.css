@@ -49,7 +49,40 @@
 
   html {
     direction: rtl;
+  }
+
+  /* Force Western numerals everywhere */
+  * {
     font-variant-numeric: lining-nums;
+    font-feature-settings: "tnum", "lnum";
+  }
+
+  .western-numbers {
+    font-family: 'Arial', 'Helvetica', sans-serif !important;
+    unicode-bidi: embed;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  /* Force all numbers to display as Western */
+  input[type="number"], 
+  .number, 
+  .numeric-display,
+  .chart-number,
+  .result-number,
+  .western-numbers {
+    font-variant-numeric: lining-nums !important;
+    font-feature-settings: "tnum", "lnum" !important;
+    font-family: 'Arial', 'Helvetica', sans-serif !important;
+  }
+
+  /* Additional global number fixes */
+  .recharts-text,
+  .recharts-tooltip-content,
+  .recharts-cartesian-axis-tick-value {
+    font-variant-numeric: lining-nums !important;
+    font-feature-settings: "tnum", "lnum" !important;
+    font-family: 'Arial', 'Helvetica', sans-serif !important;
   }
 
   body {

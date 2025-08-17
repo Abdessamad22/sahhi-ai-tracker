@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useHealth } from '@/context/HealthContext';
 import { useToast } from '@/hooks/use-toast';
 import { calculateMinutesToBurnCalories, metValues, formatNumber } from '@/lib/utils';
+import { toWesternNumerals, formatNumberWestern } from '@/lib/number-utils';
 import { ClipboardCopy, Clock, Dumbbell, Flame, Waves } from 'lucide-react';
 
 const CardioConverterPage = () => {
@@ -99,7 +100,7 @@ const CardioConverterPage = () => {
     
     toast({
       title: "تم الحساب",
-      description: `ستحتاج إلى ${Math.round(minutesResult)} دقيقة من ${activityLabels[activity]} لحرق ${formatNumber(caloriesNum)} سعرة حرارية`
+      description: `ستحتاج إلى ${toWesternNumerals(Math.round(minutesResult).toString())} دقيقة من ${activityLabels[activity]} لحرق ${formatNumberWestern(caloriesNum)} سعرة حرارية`
     });
   };
   
@@ -133,14 +134,14 @@ const CardioConverterPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="calories">السعرات الحرارية</Label>
                   <div className="relative">
-                    <Input 
-                      id="calories" 
-                      value={calories} 
-                      onChange={(e) => setCalories(e.target.value)}
-                      type="number" 
-                      placeholder="أدخل السعرات" 
-                      className="pl-20" 
-                    />
+                     <Input 
+                       id="calories" 
+                       value={calories} 
+                       onChange={(e) => setCalories(e.target.value)}
+                       type="number" 
+                       placeholder="أدخل السعرات" 
+                       className="pl-20 western-numbers" 
+                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                       سعرة حرارية
                     </span>
@@ -150,15 +151,15 @@ const CardioConverterPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="weight">الوزن</Label>
                   <div className="relative">
-                    <Input 
-                      id="weight" 
-                      value={weight} 
-                      onChange={(e) => setWeight(e.target.value)}
-                      type="number" 
-                      step="0.1"
-                      placeholder="أدخل وزنك" 
-                      className="pl-12" 
-                    />
+                     <Input 
+                       id="weight" 
+                       value={weight} 
+                       onChange={(e) => setWeight(e.target.value)}
+                       type="number" 
+                       step="0.1"
+                       placeholder="أدخل وزنك" 
+                       className="pl-12 western-numbers" 
+                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                       كجم
                     </span>
@@ -189,7 +190,7 @@ const CardioConverterPage = () => {
                   <p className="text-sm text-muted-foreground">الوقت اللازم لحرق السعرات الحرارية</p>
                   <div className="flex justify-center items-center gap-2">
                     <Clock className="text-health-600 h-6 w-6" />
-                    <span className="text-3xl font-bold">{formatNumber(minutes)} دقيقة</span>
+                    <span className="text-3xl font-bold western-numbers">{formatNumberWestern(minutes)} دقيقة</span>
                   </div>
                   <p className="text-sm text-muted-foreground">{activityLabels[activity]}</p>
                 </div>
@@ -216,11 +217,11 @@ const CardioConverterPage = () => {
                     <div className="space-y-1">
                       <div className="flex items-center gap-1">
                         <Flame className="h-4 w-4 text-health-600" />
-                        <span className="font-medium">{formatNumber(result.calories)} سعرة</span>
+                        <span className="font-medium western-numbers">{formatNumberWestern(result.calories)} سعرة</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">{formatNumber(result.minutes)} دقيقة</span>
+                        <span className="text-sm western-numbers">{formatNumberWestern(result.minutes)} دقيقة</span>
                       </div>
                       <div className="flex items-center gap-1">
                         {activityIcons[result.activity]}

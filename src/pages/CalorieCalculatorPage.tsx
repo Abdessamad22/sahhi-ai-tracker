@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { useHealth } from '@/context/HealthContext';
 import { Activity, ArrowRight, HeartPulse, Scale } from 'lucide-react';
 import { activityMultipliers, formatNumber } from '@/lib/utils';
+import { toWesternNumerals, formatNumberWestern } from '@/lib/number-utils';
 import { useToast } from '@/hooks/use-toast';
 
 const CalorieCalculatorPage = () => {
@@ -109,14 +110,14 @@ const CalorieCalculatorPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="age">العمر</Label>
                   <div className="relative">
-                    <Input 
-                      id="age" 
-                      value={age} 
-                      onChange={(e) => setAge(e.target.value)}
-                      type="number" 
-                      placeholder="أدخل عمرك" 
-                      className="pl-12" 
-                    />
+                     <Input 
+                       id="age" 
+                       value={age} 
+                       onChange={(e) => setAge(e.target.value)}
+                       type="number" 
+                       placeholder="أدخل عمرك" 
+                       className="pl-12 western-numbers" 
+                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                       سنة
                     </span>
@@ -144,15 +145,15 @@ const CalorieCalculatorPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="weight">الوزن</Label>
                   <div className="relative">
-                    <Input 
-                      id="weight" 
-                      value={weight} 
-                      onChange={(e) => setWeight(e.target.value)}
-                      type="number" 
-                      step="0.1"
-                      placeholder="أدخل وزنك" 
-                      className="pl-12" 
-                    />
+                     <Input 
+                       id="weight" 
+                       value={weight} 
+                       onChange={(e) => setWeight(e.target.value)}
+                       type="number" 
+                       step="0.1"
+                       placeholder="أدخل وزنك" 
+                       className="pl-12 western-numbers" 
+                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                       كجم
                     </span>
@@ -162,15 +163,15 @@ const CalorieCalculatorPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="height">الطول</Label>
                   <div className="relative">
-                    <Input 
-                      id="height" 
-                      value={height} 
-                      onChange={(e) => setHeight(e.target.value)}
-                      type="number" 
-                      step="0.1"
-                      placeholder="أدخل طولك" 
-                      className="pl-12" 
-                    />
+                     <Input 
+                       id="height" 
+                       value={height} 
+                       onChange={(e) => setHeight(e.target.value)}
+                       type="number" 
+                       step="0.1"
+                       placeholder="أدخل طولك" 
+                       className="pl-12 western-numbers" 
+                     />
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                       سم
                     </span>
@@ -221,7 +222,7 @@ const CalorieCalculatorPage = () => {
                   <HeartPulse className="text-health-600 mr-2" size={20} />
                   <span className="text-sm text-muted-foreground">السعرات في الراحة</span>
                 </div>
-                <span className="text-xl font-bold">{formatNumber(Math.round(bmr))}</span>
+                <span className="text-xl font-bold western-numbers">{formatNumberWestern(Math.round(bmr))}</span>
               </div>
               <Separator />
             </div>
@@ -233,7 +234,7 @@ const CalorieCalculatorPage = () => {
                   <Activity className="text-health-600 mr-2" size={20} />
                   <span className="text-sm text-muted-foreground">إجمالي السعرات اليومية</span>
                 </div>
-                <span className="text-xl font-bold">{formatNumber(Math.round(tdee))}</span>
+                <span className="text-xl font-bold western-numbers">{formatNumberWestern(Math.round(tdee))}</span>
               </div>
               <Separator />
             </div>
@@ -249,21 +250,21 @@ const CalorieCalculatorPage = () => {
                 <TabsContent value="lose" className="space-y-2">
                   <div className="bg-muted p-3 rounded-md">
                     <p className="text-xs text-muted-foreground">لفقدان الوزن (0.5 كجم/أسبوع)</p>
-                    <p className="text-xl font-bold">{formatNumber(goals.lose)} سعرة</p>
+                    <p className="text-xl font-bold western-numbers">{formatNumberWestern(goals.lose)} سعرة</p>
                   </div>
                   <p className="text-xs text-muted-foreground">عجز 20% من إجمالي السعرات</p>
                 </TabsContent>
                 <TabsContent value="maintain" className="space-y-2">
                   <div className="bg-muted p-3 rounded-md">
                     <p className="text-xs text-muted-foreground">للحفاظ على الوزن الحالي</p>
-                    <p className="text-xl font-bold">{formatNumber(goals.maintain)} سعرة</p>
+                    <p className="text-xl font-bold western-numbers">{formatNumberWestern(goals.maintain)} سعرة</p>
                   </div>
                   <p className="text-xs text-muted-foreground">الحفاظ على وزن متوازن</p>
                 </TabsContent>
                 <TabsContent value="gain" className="space-y-2">
                   <div className="bg-muted p-3 rounded-md">
                     <p className="text-xs text-muted-foreground">لزيادة العضلات (0.25 كجم/أسبوع)</p>
-                    <p className="text-xl font-bold">{formatNumber(goals.gain)} سعرة</p>
+                    <p className="text-xl font-bold western-numbers">{formatNumberWestern(goals.gain)} سعرة</p>
                   </div>
                   <p className="text-xs text-muted-foreground">زيادة 15% من إجمالي السعرات</p>
                 </TabsContent>

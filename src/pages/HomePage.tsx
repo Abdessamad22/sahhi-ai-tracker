@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useHealth } from '@/context/HealthContext';
 import { formatNumber } from '@/lib/utils';
+import { formatNumberWestern } from '@/lib/number-utils';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -58,13 +59,13 @@ const HomePage = () => {
             <StatCard 
               icon={<BarChart3 className="h-8 w-8 text-health-600" />}
               title="معدل الأيض الأساسي (BMR)"
-              value={`${formatNumber(Math.round(bmr))} سعرة حرارية`}
+              value={`${formatNumberWestern(Math.round(bmr))} سعرة حرارية`}
               description="عدد السعرات الحرارية التي يحتاجها جسمك للحفاظ على وظائفه الأساسية"
             />
             <StatCard 
               icon={<Activity className="h-8 w-8 text-health-600" />}
               title="إجمالي الطاقة اليومية (TDEE)"
-              value={`${formatNumber(Math.round(tdee))} سعرة حرارية`}
+              value={`${formatNumberWestern(Math.round(tdee))} سعرة حرارية`}
               description="إجمالي السعرات الحرارية التي يحرقها جسمك يوميًا شاملًا النشاط"
             />
           </div>
@@ -114,7 +115,7 @@ const StatCard = ({
     <div className="flex-shrink-0">{icon}</div>
     <div>
       <h3 className="text-lg font-medium">{title}</h3>
-      <p className="text-2xl font-bold text-health-700 my-1">{value}</p>
+      <p className="text-2xl font-bold text-health-700 my-1 western-numbers">{value}</p>
       <p className="text-sm text-muted-foreground">{description}</p>
     </div>
   </div>

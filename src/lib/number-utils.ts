@@ -14,7 +14,7 @@ export function toWesternNumerals(str: string | number): string {
 
 // Format number ensuring Western numerals are used
 export function formatNumberWestern(num: number): string {
-  const formatted = num.toLocaleString('fr-FR');
+  const formatted = num.toLocaleString('en-US');
   return toWesternNumerals(formatted);
 }
 
@@ -27,7 +27,7 @@ export function formatDecimalWestern(num: number, decimals: number = 1): string 
 // Format date ensuring Western numerals
 export function formatDateWestern(dateStr: string): string {
   const date = new Date(dateStr);
-  const formatted = new Intl.DateTimeFormat('fr-FR', {
+  const formatted = new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',

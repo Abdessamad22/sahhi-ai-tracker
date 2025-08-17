@@ -1,6 +1,29 @@
 import { createRoot } from 'react-dom/client'
+import { useEffect } from 'react'
 import App from './App.tsx'
 import './index.css'
+import { forceWesternNumerals, fixNumberDisplay } from './lib/number-fix'
+
+function AppWrapper() {
+  useEffect(() => {
+    // Apply Western numerals fixes
+    forceWesternNumerals();
+    const observer = fixNumberDisplay();
+    
+    // Re-apply fixes on route changes or content updates
+    const interval = setInterval(() => {
+      forceWesternNumerals();
+    }, 1000);
+    
+    // Cleanup on unmount
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
+  return <App />;
+}
 
 // تسجيل Service Worker للـ PWA
 if ('serviceWorker' in navigator) {
@@ -15,4 +38,4 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<AppWrapper />);

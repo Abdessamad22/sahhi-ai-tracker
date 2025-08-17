@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // Format number with commas
 export function formatNumber(num: number): string {
-  return toWesternNumerals(num.toLocaleString('fr-FR'));
+  return toWesternNumerals(num.toLocaleString('en-US'));
 }
 
 // Round number to specific decimal places
@@ -17,10 +17,10 @@ export function roundToDecimals(num: number, decimals: number = 1): number {
   return Number(Math.round(parseFloat(num + 'e' + decimals)) + 'e-' + decimals);
 }
 
-// Format date to French friendly format
+// Format date to French friendly format with Western numerals
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  const formatted = new Intl.DateTimeFormat('fr-FR', {
+  const formatted = new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
