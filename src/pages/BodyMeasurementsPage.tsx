@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useHealth } from '@/context/HealthContext';
+import type { BodyMeasurement } from '@/context/HealthContext';
 import { useToast } from '@/hooks/use-toast';
 import { formatDate } from '@/lib/utils';
 import { ArrowDown, ArrowUp, Equal, Scale, Trash2, Eye, Check, X } from 'lucide-react';
@@ -46,7 +47,7 @@ const BodyMeasurementsPage = () => {
     e.preventDefault();
     
     // Convert all values to numbers and validate
-    const measurementData: Record<string, number> = {
+    const measurementData: Omit<BodyMeasurement, 'id' | 'date'> = {
       neck: parseFloatOrZero(formData.neck),
       shoulders: parseFloatOrZero(formData.shoulders),
       chest: parseFloatOrZero(formData.chest),

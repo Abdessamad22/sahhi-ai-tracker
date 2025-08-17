@@ -13,7 +13,7 @@ interface UserInfo {
   activityLevel: ActivityLevel;
 }
 
-interface BodyMeasurement {
+export interface BodyMeasurement {
   id: string;
   date: string;
   neck: number;
