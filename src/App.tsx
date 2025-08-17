@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import CalorieCalculatorPage from "./pages/CalorieCalculatorPage";
 import BodyMeasurementsPage from "./pages/BodyMeasurementsPage";
 import CardioConverterPage from "./pages/CardioConverterPage";
+import WorkoutProgramPage from "./pages/WorkoutProgramPage";
 import NotFound from "./pages/NotFound";
 import { HealthProvider } from "./context/HealthContext";
 
@@ -51,6 +52,14 @@ const App = () => (
               element={
                 <MainLayout>
                   <CardioConverterPage />
+                </MainLayout>
+              } 
+            />
+            <Route 
+              path="/workout-program" 
+              element={
+                <MainLayout>
+                  <WorkoutProgramPage />
                 </MainLayout>
               } 
             />
