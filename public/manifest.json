@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0abe70",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "categories": ["health", "fitness", "lifestyle"],
   "lang": "ar",
   "dir": "rtl",

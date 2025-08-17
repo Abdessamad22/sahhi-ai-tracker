@@ -53,6 +53,10 @@
 
   body {
     @apply bg-background text-foreground font-cairo;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
   }
 
   * {
