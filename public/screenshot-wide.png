@@ -1,0 +1,48 @@
+<!-- لقطة شاشة عريضة للـ PWA -->
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dcfce7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00774b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0abe70;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGradient)"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1280" height="80" fill="url(#headerGradient)"/>
+  <text x="40" y="50" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">تتبع صحتي</text>
+  
+  <!-- Main content area -->
+  <rect x="40" y="120" width="1200" height="200" rx="16" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  <text x="640" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#0abe70">تطبيق شامل لتتبع الصحة واللياقة</text>
+  <text x="640" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#6b7280">حساب السعرات الحرارية • تتبع قياسات الجسم • تحويل السعرات لدقائق التمارين</text>
+  <text x="640" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#9ca3af">دليلك الشامل للوصول لأهدافك الصحية</text>
+  
+  <!-- Feature cards -->
+  <rect x="80" y="360" width="320" height="280" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="240" cy="420" r="30" fill="#0abe70"/>
+  <text x="240" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="white">🔥</text>
+  <text x="240" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">حساب السعرات</text>
+  <text x="240" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">احسب احتياجاتك اليومية</text>
+  <text x="240" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">من السعرات الحرارية</text>
+  
+  <rect x="480" y="360" width="320" height="280" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="640" cy="420" r="30" fill="#0abe70"/>
+  <text x="640" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="white">📏</text>
+  <text x="640" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">قياسات الجسم</text>
+  <text x="640" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">تتبع قياساتك وتقدمك</text>
+  <text x="640" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">مع مرور الوقت</text>
+  
+  <rect x="880" y="360" width="320" height="280" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="1040" cy="420" r="30" fill="#0abe70"/>
+  <text x="1040" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="white">⏱️</text>
+  <text x="1040" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">تحويل الكارديو</text>
+  <text x="1040" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">حوّل السعرات إلى</text>
+  <text x="1040" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6b7280">دقائق تمارين</text>
+</svg>

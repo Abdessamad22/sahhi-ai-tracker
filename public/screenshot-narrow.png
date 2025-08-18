@@ -1,0 +1,53 @@
+<!-- لقطة شاشة ضيقة للهواتف -->
+<svg width="390" height="844" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mobileBgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dcfce7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mobileHeaderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00774b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0abe70;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="390" height="844" fill="url(#mobileBgGradient)"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="390" height="70" fill="url(#mobileHeaderGradient)"/>
+  <text x="20" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">تتبع صحتي</text>
+  
+  <!-- Hero section -->
+  <rect x="20" y="90" width="350" height="160" rx="12" fill="url(#mobileHeaderGradient)"/>
+  <text x="195" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">تتبع صحتي</text>
+  <text x="195" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)">دليلك الشامل لحساب السعرات الحرارية</text>
+  <text x="195" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)">وتتبع قياسات الجسم</text>
+  
+  <!-- Feature cards -->
+  <rect x="20" y="270" width="350" height="120" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="60" cy="320" r="20" fill="#0abe70"/>
+  <text x="60" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white">🔥</text>
+  <text x="100" y="310" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1f2937">حساب السعرات الحرارية</text>
+  <text x="100" y="330" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">احسب احتياجاتك اليومية من السعرات</text>
+  <text x="100" y="350" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">بناءً على معلوماتك الشخصية</text>
+  
+  <rect x="20" y="410" width="350" height="120" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="60" cy="460" r="20" fill="#0abe70"/>
+  <text x="60" y="468" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white">📏</text>
+  <text x="100" y="450" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1f2937">تتبع قياسات الجسم</text>
+  <text x="100" y="470" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">سجل قياساتك وتابع تقدمك</text>
+  <text x="100" y="490" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">مع مرور الوقت</text>
+  
+  <rect x="20" y="550" width="350" height="120" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="60" cy="600" r="20" fill="#0abe70"/>
+  <text x="60" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="white">⏱️</text>
+  <text x="100" y="590" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1f2937">تحويل السعرات إلى كارديو</text>
+  <text x="100" y="610" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">حوّل السعرات الحرارية إلى</text>
+  <text x="100" y="630" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">دقائق تمارين رياضية</text>
+  
+  <!-- Bottom section -->
+  <rect x="20" y="690" width="350" height="80" rx="8" fill="rgba(10, 190, 112, 0.1)"/>
+  <text x="195" y="720" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0abe70">ابدأ رحلتك الصحية اليوم</text>
+  <text x="195" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">تطبيق مجاني وسهل الاستخدام</text>
+</svg>
