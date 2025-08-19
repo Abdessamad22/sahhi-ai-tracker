@@ -10,6 +10,7 @@ import CalorieCalculatorPage from "./pages/CalorieCalculatorPage";
 import BodyMeasurementsPage from "./pages/BodyMeasurementsPage";
 import CardioConverterPage from "./pages/CardioConverterPage";
 import WeeklyProgramPage from "./pages/WeeklyProgramPage";
+import MyItemsPage from "./pages/MyItemsPage";
 import NotFound from "./pages/NotFound";
 import { HealthProvider } from "./context/HealthContext";
 
@@ -60,6 +61,14 @@ const App = () => (
               element={
                 <MainLayout>
                   <WeeklyProgramPage />
+                </MainLayout>
+              } 
+            />
+            <Route 
+              path="/my-items" 
+              element={
+                <MainLayout>
+                  <MyItemsPage />
                 </MainLayout>
               } 
             />

@@ -1,6 +1,6 @@
 
 import { Activity, BarChart3, Scale, Timer } from 'lucide-react';
-import { Calendar } from 'lucide-react';
+import { Calendar, Backpack } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -55,6 +55,12 @@ const HomePage = () => {
           title="البرنامج الأسبوعي"
           description="أنشئ برنامجك التدريبي الأسبوعي المخصص وتابع تقدمك يومياً"
           onClick={() => navigate('/weekly-program')}
+        />
+        <FeatureCard 
+          icon={<Backpack className="h-10 w-10 text-health-600" />}
+          title="أغراضي"
+          description="تأكد من أغراضك قبل الذهاب وبعد الرجوع من التمرين مع تذكيرات ذكية"
+          onClick={() => navigate('/my-items')}
         />
       </section>
 
