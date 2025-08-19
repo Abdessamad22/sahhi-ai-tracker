@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { PWAInstallButton } from '@/components/PWAInstallButton';
+
 import { Menu, Home, Calculator, Activity, Scale, Calendar, Backpack } from 'lucide-react';
 
 const Navbar = () => {
@@ -47,11 +47,8 @@ const Navbar = () => {
           ))}
         </nav>
         
-        {/* PWA Install Button & Mobile Menu */}
+        {/* Mobile Menu */}
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <PWAInstallButton />
-          </div>
           
           {/* Mobile Menu */}
           <div className="md:hidden">
@@ -68,9 +65,6 @@ const Navbar = () => {
                   </div>
                   
                   <div className="space-y-4 pt-4">
-                    <div className="block sm:hidden mb-4">
-                      <PWAInstallButton />
-                    </div>
                     {navigationItems.map((item) => (
                       <Link
                         key={item.href}

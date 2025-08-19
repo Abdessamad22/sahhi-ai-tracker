@@ -1,15 +1,16 @@
 {
-  "name": "تطبيق الصحة واللياقة",
+  "name": "تتبع صحتي | My Health Tracker",
   "short_name": "صحتي",
-  "description": "تطبيق شامل لتتبع الصحة واللياقة البدنية والقياسات",
+  "description": "تطبيق لحساب السعرات الحرارية وتتبع قياسات الجسم وتحويل السعرات إلى دقائق كارديو",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0abe70",
-  "orientation": "any",
-  "categories": ["health", "fitness", "lifestyle"],
+  "orientation": "portrait",
+  "scope": "/",
   "lang": "ar",
   "dir": "rtl",
+  "categories": ["health", "fitness", "lifestyle"],
   "icons": [
     {
       "src": "/icon-192.png",
@@ -22,6 +23,11 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
   "screenshots": [
