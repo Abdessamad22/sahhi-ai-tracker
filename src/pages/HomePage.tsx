@@ -1,5 +1,6 @@
 
 import { Activity, BarChart3, Scale, Timer } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -48,6 +49,12 @@ const HomePage = () => {
           title="تحويل السعرات إلى دقائق كارديو"
           description="حوّل قيم السعرات الحرارية إلى وقت للتمارين الرياضية بناءً على نوع التمرين"
           onClick={() => navigate('/cardio-converter')}
+        />
+        <FeatureCard 
+          icon={<Calendar className="h-10 w-10 text-health-600" />}
+          title="البرنامج الأسبوعي"
+          description="أنشئ برنامجك التدريبي الأسبوعي المخصص وتابع تقدمك يومياً"
+          onClick={() => navigate('/weekly-program')}
         />
       </section>
 

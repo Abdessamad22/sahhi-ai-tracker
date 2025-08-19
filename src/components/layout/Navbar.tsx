@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { PWAInstallButton } from '@/components/PWAInstallButton';
-import { Menu, Home, Calculator, Activity, Scale } from 'lucide-react';
+import { Menu, Home, Calculator, Activity, Scale, Calendar } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +15,7 @@ const Navbar = () => {
     { href: '/calorie-calculator', label: 'حساب السعرات', icon: Calculator },
     { href: '/body-measurements', label: 'قياسات الجسم', icon: Scale },
     { href: '/cardio-converter', label: 'تحويل السعرات', icon: Activity },
+    { href: '/weekly-program', label: 'البرنامج الأسبوعي', icon: Calendar },
   ];
 
   return (
