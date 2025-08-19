@@ -1,6 +1,7 @@
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HealthProvider } from "./context/HealthContext";
 import MainLayout from "./components/layout/MainLayout";
 import HomePage from "./pages/HomePage";
 import CalorieCalculatorPage from "./pages/CalorieCalculatorPage";
@@ -14,8 +15,9 @@ const App = () => {
   console.log("App component rendering");
   
   return (
-    <BrowserRouter>
-      <Routes>
+    <HealthProvider>
+      <BrowserRouter>
+        <Routes>
         <Route 
           path="/" 
           element={
@@ -65,8 +67,9 @@ const App = () => {
           } 
         />
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </HealthProvider>
   );
 };
 
