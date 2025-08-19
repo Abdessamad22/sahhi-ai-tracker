@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,13 +17,14 @@ import { HealthProvider } from "./context/HealthContext";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HealthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HealthProvider>
         <BrowserRouter>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
           <Routes>
             <Route 
               path="/" 
@@ -74,10 +76,11 @@ const App = () => (
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </TooltipProvider>
         </BrowserRouter>
-      </TooltipProvider>
-    </HealthProvider>
-  </QueryClientProvider>
-);
+      </HealthProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
