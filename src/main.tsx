@@ -6,7 +6,10 @@ import './index.css'
 import { forceWesternNumerals, fixNumberDisplay } from './lib/number-fix'
 
 function AppWrapper() {
+  console.log("AppWrapper rendering");
+  
   useEffect(() => {
+    console.log("AppWrapper useEffect running");
     // Apply Western numerals fixes
     forceWesternNumerals();
     const observer = fixNumberDisplay();
