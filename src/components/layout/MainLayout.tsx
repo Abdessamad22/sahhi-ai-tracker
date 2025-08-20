@@ -1,5 +1,6 @@
 
 import { ReactNode } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import Navbar from './Navbar';
 
 interface MainLayoutProps {
@@ -7,6 +8,8 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
       <Navbar />
@@ -14,7 +17,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         {children}
       </main>
       <footer className="py-6 text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} تتبع صحتي | تم تطويره بواسطة فريق تتبع صحتي</p>
+        <p>{t('footerText', { year: new Date().getFullYear() })}</p>
       </footer>
     </div>
   );

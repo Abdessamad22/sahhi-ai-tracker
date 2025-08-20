@@ -48,6 +48,14 @@
   }
 
   html {
+    direction: var(--text-direction, rtl);
+  }
+  
+  html[dir="ltr"] {
+    direction: ltr;
+  }
+  
+  html[dir="rtl"] {
     direction: rtl;
   }
 

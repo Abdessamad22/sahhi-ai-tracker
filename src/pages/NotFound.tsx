@@ -3,9 +3,11 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/context/LanguageContext";
 
 const NotFound = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     console.error(
@@ -18,9 +20,9 @@ const NotFound = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center p-6">
         <h1 className="text-4xl font-bold mb-4 western-numbers">404</h1>
-        <p className="text-xl text-gray-600 mb-4">عذراً، الصفحة غير موجودة</p>
+        <p className="text-xl text-gray-600 mb-4">{t('notFoundTitle')}</p>
         <Button asChild>
-          <Link to="/">العودة للصفحة الرئيسية</Link>
+          <Link to="/">{t('backToHome')}</Link>
         </Button>
       </div>
     </div>
