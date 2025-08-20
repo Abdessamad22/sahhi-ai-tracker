@@ -19,16 +19,16 @@ const LanguageSwitcher = () => {
           <span className="sr-only">{t('language')}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="bg-white shadow-lg border z-50">
         <DropdownMenuItem 
           onClick={() => setLanguage('ar')}
-          className={language === 'ar' ? 'bg-primary/10' : ''}
+          className={`cursor-pointer ${language === 'ar' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
         >
           العربية
         </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={() => setLanguage('en')}
-          className={language === 'en' ? 'bg-primary/10' : ''}
+          className={`cursor-pointer ${language === 'en' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
         >
           English
         </DropdownMenuItem>

@@ -49,8 +49,9 @@ const Navbar = () => {
           ))}
         </nav>
         
-        {/* Mobile Menu */}
-        <div className="flex items-center gap-2">
+        {/* Desktop and Mobile Actions */}
+        <div className="flex items-center gap-3">
+          {/* Language Switcher - Visible on all screens */}
           <LanguageSwitcher />
           
           {/* Mobile Menu */}
