@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Plus, Edit, Trash2, Upload, Settings } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Plus, Edit, Trash2, Upload, Settings, X, Star } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Product {
@@ -18,6 +19,8 @@ interface Product {
   price: number;
   category: string;
   image_url: string;
+  images: string[];
+  is_new: boolean;
   created_at: string;
 }
 
@@ -27,6 +30,8 @@ interface ProductForm {
   price: string;
   category: string;
   image_url: string;
+  images: string[];
+  is_new: boolean;
 }
 
 const ProductAdminPage = () => {
@@ -42,7 +47,9 @@ const ProductAdminPage = () => {
     description: '',
     price: '',
     category: '',
-    image_url: ''
+    image_url: '',
+    images: [],
+    is_new: false
   });
 
   useEffect(() => {
@@ -89,7 +96,12 @@ const ProductAdminPage = () => {
         .from('product-images')
         .getPublicUrl(filePath);
 
-      setFormData(prev => ({ ...prev, image_url: data.publicUrl }));
+      // Add to images array instead of replacing
+      setFormData(prev => ({ 
+        ...prev, 
+        images: [...prev.images, data.publicUrl],
+        image_url: prev.image_url || data.publicUrl // Set as main image if none exists
+      }));
       
       toast({
         title: "Success",
@@ -105,6 +117,21 @@ const ProductAdminPage = () => {
     } finally {
       setUploading(false);
     }
+  };
+
+  const removeImage = (imageUrl: string) => {
+    setFormData(prev => ({
+      ...prev,
+      images: prev.images.filter(img => img !== imageUrl),
+      image_url: prev.image_url === imageUrl ? (prev.images[0] || '') : prev.image_url
+    }));
+  };
+
+  const setAsMainImage = (imageUrl: string) => {
+    setFormData(prev => ({
+      ...prev,
+      image_url: imageUrl
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -125,7 +152,9 @@ const ProductAdminPage = () => {
         description: formData.description.trim() || null,
         price: formData.price ? parseFloat(formData.price) : null,
         category: formData.category.trim() || null,
-        image_url: formData.image_url.trim() || null
+        image_url: formData.image_url.trim() || null,
+        images: formData.images,
+        is_new: formData.is_new
       };
 
       if (editingProduct) {
@@ -199,7 +228,9 @@ const ProductAdminPage = () => {
       description: '',
       price: '',
       category: '',
-      image_url: ''
+      image_url: '',
+      images: [],
+      is_new: false
     });
     setEditingProduct(null);
   };
@@ -211,7 +242,9 @@ const ProductAdminPage = () => {
       description: product.description || '',
       price: product.price ? product.price.toString() : '',
       category: product.category || '',
-      image_url: product.image_url || ''
+      image_url: product.image_url || '',
+      images: product.images || [],
+      is_new: product.is_new || false
     });
     setIsDialogOpen(true);
   };
@@ -236,10 +269,10 @@ const ProductAdminPage = () => {
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-primary mb-4 flex items-center justify-center gap-3">
           <Settings className="h-10 w-10" />
-          Product Control Panel
+          لوحة التحكم بالمنتجات
         </h1>
         <p className="text-muted-foreground text-lg">
-          Manage your product catalog
+          إدارة كتالوج المنتجات الخاص بك
         </p>
       </div>
 
@@ -248,65 +281,79 @@ const ProductAdminPage = () => {
           <DialogTrigger asChild>
             <Button onClick={openCreateDialog} className="flex items-center gap-2">
               <Plus className="h-4 w-4" />
-              Add New Product
+              إضافة منتج جديد
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {editingProduct ? 'Edit Product' : 'Add New Product'}
+                {editingProduct ? 'تعديل المنتج' : 'إضافة منتج جديد'}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="name">Product Name *</Label>
+                <Label htmlFor="name">اسم المنتج *</Label>
                 <Input
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Enter product name"
+                  placeholder="أدخل اسم المنتج"
                   required
                 />
               </div>
 
               <div>
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">الوصف</Label>
                 <Textarea
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  placeholder="Enter product description"
+                  placeholder="أدخل وصف المنتج"
                   rows={3}
                 />
               </div>
 
-              <div>
-                <Label htmlFor="price">Price ($)</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  value={formData.price}
-                  onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
-                  placeholder="0.00"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="category">Category</Label>
-                <Input
-                  id="category"
-                  value={formData.category}
-                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                  placeholder="Enter category"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="image">Product Image</Label>
-                <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="price">السعر ($)</Label>
                   <Input
-                    id="image"
+                    id="price"
+                    type="number"
+                    step="0.01"
+                    value={formData.price}
+                    onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="category">الفئة</Label>
+                  <Input
+                    id="category"
+                    value={formData.category}
+                    onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                    placeholder="أدخل الفئة"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="is_new"
+                  checked={formData.is_new}
+                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_new: !!checked }))}
+                />
+                <Label htmlFor="is_new" className="flex items-center gap-2">
+                  <Star className="h-4 w-4 text-yellow-500" />
+                  منتج جديد
+                </Label>
+              </div>
+
+              <div>
+                <Label htmlFor="images">صور المنتج</Label>
+                <div className="space-y-4">
+                  <Input
+                    id="images"
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
@@ -314,33 +361,63 @@ const ProductAdminPage = () => {
                       if (file) handleImageUpload(file);
                     }}
                     disabled={uploading}
+                    multiple
                   />
+                  
                   {uploading && (
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Upload className="h-4 w-4 animate-pulse" />
-                      Uploading...
+                      جارٍ الرفع...
                     </div>
                   )}
-                  {formData.image_url && (
-                    <img
-                      src={formData.image_url}
-                      alt="Preview"
-                      className="w-20 h-20 object-cover rounded border"
-                    />
+
+                  {formData.images.length > 0 && (
+                    <div className="grid grid-cols-3 gap-2">
+                      {formData.images.map((imageUrl, index) => (
+                        <div key={index} className="relative group">
+                          <img
+                            src={imageUrl}
+                            alt={`صورة ${index + 1}`}
+                            className={`w-full h-20 object-cover rounded border-2 cursor-pointer ${
+                              imageUrl === formData.image_url ? 'border-primary' : 'border-gray-200'
+                            }`}
+                            onClick={() => setAsMainImage(imageUrl)}
+                          />
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => removeImage(imageUrl)}
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                          {imageUrl === formData.image_url && (
+                            <div className="absolute top-1 left-1 bg-primary text-white text-xs px-1 rounded">
+                              رئيسية
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   )}
+
+                  <p className="text-xs text-muted-foreground">
+                    انقر على الصورة لجعلها الصورة الرئيسية
+                  </p>
                 </div>
               </div>
 
               <div className="flex gap-2 pt-4">
                 <Button type="submit" className="flex-1">
-                  {editingProduct ? 'Update Product' : 'Create Product'}
+                  {editingProduct ? 'تحديث المنتج' : 'إنشاء المنتج'}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setIsDialogOpen(false)}
                 >
-                  Cancel
+                  إلغاء
                 </Button>
               </div>
             </form>
@@ -352,10 +429,10 @@ const ProductAdminPage = () => {
         <div className="text-center py-12">
           <Settings className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-muted-foreground mb-2">
-            No products yet
+            لا توجد منتجات بعد
           </h3>
           <p className="text-muted-foreground">
-            Start by adding your first product
+            ابدأ بإضافة منتجك الأول
           </p>
         </div>
       ) : (
@@ -363,16 +440,24 @@ const ProductAdminPage = () => {
           {products.map((product) => (
             <Card key={product.id} className="group">
               <CardHeader className="pb-3">
-                {product.image_url && (
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="w-full h-48 object-cover rounded-md mb-3"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/placeholder.svg';
-                    }}
-                  />
-                )}
+                <div className="relative">
+                  {product.image_url && (
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-full h-48 object-cover rounded-md mb-3"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/placeholder.svg';
+                      }}
+                    />
+                  )}
+                  {product.is_new && (
+                    <Badge className="absolute top-2 right-2 bg-yellow-500 text-white">
+                      <Star className="h-3 w-3 mr-1" />
+                      جديد
+                    </Badge>
+                  )}
+                </div>
                 <CardTitle className="text-lg">{product.name}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -393,6 +478,11 @@ const ProductAdminPage = () => {
                     </Badge>
                   )}
                 </div>
+                {product.images && product.images.length > 1 && (
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {product.images.length} صور
+                  </p>
+                )}
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
@@ -401,7 +491,7 @@ const ProductAdminPage = () => {
                     className="flex-1"
                   >
                     <Edit className="h-4 w-4 mr-1" />
-                    Edit
+                    تعديل
                   </Button>
                   <Button
                     variant="destructive"
