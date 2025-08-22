@@ -79,11 +79,13 @@ const ProductsPage = () => {
     });
   };
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.category?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = searchTerm 
+    ? products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : products;
 
   const newProducts = filteredProducts.filter(product => product.is_new);
   const allProducts = filteredProducts;
@@ -220,13 +222,15 @@ const ProductsPage = () => {
 
       <div className="mb-6">
         <div className="relative max-w-md mx-auto">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+            <Search className="h-5 w-5" />
+          </div>
           <Input
             type="text"
             placeholder="البحث في المنتجات..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-12 h-12 text-base border-2 border-border/50 focus:border-primary transition-colors"
           />
         </div>
       </div>
