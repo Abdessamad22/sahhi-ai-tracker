@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { useEffect } from 'react'
 import App from './App.tsx'
 import './index.css'
 import { forceWesternNumerals, fixNumberDisplay } from './lib/number-fix'
