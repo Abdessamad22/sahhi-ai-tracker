@@ -10,6 +10,8 @@ import BodyMeasurementsPage from "./pages/BodyMeasurementsPage";
 import CardioConverterPage from "./pages/CardioConverterPage";
 import WeeklyProgramPage from "./pages/WeeklyProgramPage";
 import MyItemsPage from "./pages/MyItemsPage";
+import ProductsPage from "./pages/ProductsPage";
+import ProductAdminPage from "./pages/ProductAdminPage";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -65,6 +67,22 @@ const App = () => {
           element={
             <MainLayout>
               <MyItemsPage />
+            </MainLayout>
+          } 
+        />
+        <Route 
+          path="/products" 
+          element={
+            <MainLayout>
+              <ProductsPage />
+            </MainLayout>
+          } 
+        />
+        <Route 
+          path="/admin/products" 
+          element={
+            <MainLayout>
+              <ProductAdminPage />
             </MainLayout>
           } 
         />

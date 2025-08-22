@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import { Menu, Home, Calculator, Activity, Scale, Calendar, Backpack } from 'lucide-react';
+import { Menu, Home, Calculator, Activity, Scale, Calendar, Backpack, Package, Settings } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +19,8 @@ const Navbar = () => {
     { href: '/cardio-converter', label: t('cardioConverter'), icon: Activity },
     { href: '/weekly-program', label: t('weeklyProgram'), icon: Calendar },
     { href: '/my-items', label: t('myItems'), icon: Backpack },
+    { href: '/products', label: 'My Products', icon: Package },
+    { href: '/admin/products', label: 'Product Admin', icon: Settings },
   ];
 
   return (
