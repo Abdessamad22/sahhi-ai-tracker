@@ -79,13 +79,11 @@ const ProductsPage = () => {
     });
   };
 
-  const filteredProducts = searchTerm 
-    ? products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.category?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : products;
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.category?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const newProducts = filteredProducts.filter(product => product.is_new);
   const allProducts = filteredProducts;
